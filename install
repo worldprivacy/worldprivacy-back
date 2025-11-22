@@ -5,4 +5,18 @@ echo "📦 Installation du projet..."
 # Build des images Docker
 docker compose build
 
+# Démarrage du container PHP
+docker compose up -d php
+
+# Installer composer dans le container si pas présent
+docker compose exec php bash -c "php -r \"copy('https://getcomposer.org/installer', 'composer-setup.php');\" && php composer-setup.php --install-dir=/usr/local/bin --filename=composer && php -r \"unlink('composer-setup.php');\" || echo 'Composer déjà installé'"
+
+# Installer les dépendances via Composer
+docker compose exec php composer install
+
+# Initialiser la BDD SQLite
+docker compose exec php php sqlite/initialize.php
+
+docker compose down
+
 echo "✅ Installation terminée !"

@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: docker/php/Dockerfile
     volumes:
-      - ./src:/var/www/html
+      - .:/var/www/html
     container_name: worldprivacy-php
 
   nginx:
