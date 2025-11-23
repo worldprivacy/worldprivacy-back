@@ -3,7 +3,7 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "WorldprivacyBack\\": "src/"
+            "WorldPrivacy\\": "src/"
         }
     },
     "authors": [

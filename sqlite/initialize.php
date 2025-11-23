@@ -2,7 +2,7 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$pdo = new PDO('sqlite:' . __DIR__ . '/../data/database.sqlite');
+$pdo = new \PDO('sqlite:' . __DIR__ . '/../data/database.sqlite');
 
 // Crée la table question
 $sql = "

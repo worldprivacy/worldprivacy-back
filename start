@@ -1,5 +1,10 @@
 #!/bin/bash
 
-echo "🚀 Démarrage du serveur "
+echo "🚀 Démarrage du serveur"
+
 docker compose up -d
+
+echo "🌱 Initialisation des données de la BDD..."
+docker compose exec php php sqlite/questions.php
+
 echo "✅ Serveur démarré sur http://localhost:8080"
