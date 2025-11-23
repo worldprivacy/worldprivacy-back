@@ -8,6 +8,10 @@ docker compose build
 # Démarrage du container PHP
 docker compose up -d php
 
+# Créer les dossiers et fichiers nécessaires
+docker compose exec php mkdir /var/www/html/data
+docker compose exec php touch /var/www/html/data/database.sqlite
+
 # Installer composer dans le container si pas présent
 docker compose exec php bash -c "php -r \"copy('https://getcomposer.org/installer', 'composer-setup.php');\" && php composer-setup.php --install-dir=/usr/local/bin --filename=composer && php -r \"unlink('composer-setup.php');\" || echo 'Composer déjà installé'"
 
