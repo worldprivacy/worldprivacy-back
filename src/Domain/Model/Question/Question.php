@@ -7,11 +7,11 @@ class Question
     private \DateTime $createdAt;
 
     public function __construct(
-        private QuestionId $questionId = new QuestionId(),
         private string $intitule,
         private bool $reponse,
         private string $texteVrai,
         private string $texteFaux,
+        private QuestionId $questionId = new QuestionId(),
         ?\DateTime $createdAt = null
     ) {
         $this->createdAt = $createdAt ?? new \DateTime();
