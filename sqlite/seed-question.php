@@ -9,16 +9,10 @@ use WorldPrivacy\Domain\Model\Question\Question;
 $pdo = new PDO('sqlite:' . __DIR__ . '/../data/database.sqlite');
 $repository = new QuestionRepository($pdo);
 
-$stmt = $pdo->query("SELECT COUNT(*) as count FROM question");
-$count = $stmt->fetch(PDO::FETCH_ASSOC)['count'] ?? 0;
+echo "🗑️  Suppression des anciennes données \n";
+$pdo->exec("DELETE FROM question");
 
-if ($count > 0) {
-    echo "✔️ Base déjà remplie, seed ignoré.\n";
-    exit;
-}
-
-echo "🌱 Insertion de données fictives...\n";
-
+echo "🌱 Insertion des données de la table 'question' (fictives pour le moment) \n";
 for ($i = 1; $i <= 20; $i++) {
     $question = new Question(
         questionId: new QuestionId(),
@@ -28,8 +22,6 @@ for ($i = 1; $i <= 20; $i++) {
         texteFaux: "Texte faux pour la question $i",
         createdAt: new DateTime()
     );
-
     $repository->save($question);
 }
-
-echo "✅ Seed terminé : 20 questions ajoutées.\n";
+echo "✅ Seed de la table 'question' effectué \n";

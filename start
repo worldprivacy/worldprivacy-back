@@ -5,6 +5,7 @@ echo "🚀 Démarrage du serveur"
 docker compose up -d
 
 echo "🌱 Initialisation des données de la BDD..."
-docker compose exec php php sqlite/questions.php
+docker compose exec php php sqlite/seed-question.php
+docker compose exec php php sqlite/seed-pays.php
 
-echo "✅ Serveur démarré sur http://localhost:8080"
+echo "🌐 Serveur démarré sur http://localhost:8080"
