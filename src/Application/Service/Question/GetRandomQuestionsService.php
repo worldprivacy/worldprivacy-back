@@ -1,6 +1,6 @@
 <?php
 
-namespace WorldPrivacy\Application\Service;
+namespace WorldPrivacy\Application\Service\Question;
 
 use WorldPrivacy\Domain\Model\Question\QuestionRepositoryInterface;
 use WorldPrivacy\Domain\Model\Question\Question;

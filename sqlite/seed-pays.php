@@ -36,9 +36,9 @@ while (($data = fgetcsv($handle, 0, ';')) !== false) {
 
     $pays = new Pays(
         zone: $zone,
-        code_pays_iso: $codeIso,
-        nom_pays: $nomPays,
-        nv_protection: $nvProtection,
+        codePaysIso: $codeIso,
+        nomPays: $nomPays,
+        nvProtection: $nvProtection,
         paysId: new PaysId(),
         createdAt: new DateTime()
     );

@@ -1,24 +1,20 @@
 <?php
 namespace WorldPrivacy\Infrastructure\Api\Question;
 
-use stdClass;
-use WorldPrivacy\Application\Service\GetRandomQuestionsService;
+use WorldPrivacy\Application\Service\Question\GetRandomQuestionsService;
 use WorldPrivacy\Infrastructure\Repository\QuestionRepository;
 
-final class QuestionController
+class GetQuestionsRandomController
 {
     public const ROUTE_PATH = '/question/list-random';
-    public function getListRandom(): \stdClass
+    public function index(\PDO $pdo): \stdClass
     {
-        $pdo = new \PDO('sqlite:' . __DIR__ . '/../../../../data/database.sqlite');
-        $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-
         $repository = new QuestionRepository($pdo);
         $service = new GetRandomQuestionsService($repository);
 
         $questions = $service->execute();
 
-        $response = new stdClass();
+        $response = new \stdClass();
         $response->questions = array_map(function($q) {
             return [
                 'id' => (string) $q->getQuestionId(),

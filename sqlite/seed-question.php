@@ -22,6 +22,6 @@ for ($i = 1; $i <= 20; $i++) {
         texteFaux: "Texte faux pour la question $i",
         createdAt: new DateTime()
     );
-    $repository->save($question);
+    $repository->add($question);
 }
 echo "✅ Seed de la table 'question' effectué \n";

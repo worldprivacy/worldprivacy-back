@@ -8,9 +8,9 @@ class Pays
 
     public function __construct(
         private string $zone,
-        private string $code_pays_iso,
-        private string $nom_pays,
-        private string $nv_protection,
+        private string $codePaysIso,
+        private string $nomPays,
+        private string $nvProtection,
         private PaysId $paysId = new PaysId(),
         ?\DateTime $createdAt = null
     ) {
@@ -24,17 +24,17 @@ class Pays
 
     public function getCodePaysIso(): string
     {
-        return $this->code_pays_iso;
+        return $this->codePaysIso;
     }
 
     public function getNomPays(): string
     {
-        return $this->nom_pays;
+        return $this->nomPays;
     }
 
     public function getNvProtection(): string
     {
-        return $this->nv_protection;
+        return $this->nvProtection;
     }
 
     public function getPaysId(): PaysId
