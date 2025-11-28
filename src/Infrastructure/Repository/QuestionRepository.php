@@ -8,37 +8,20 @@ use WorldPrivacy\Domain\Model\Question\QuestionRepositoryInterface;
 
 class QuestionRepository implements QuestionRepositoryInterface
 {
-    private \PDO $pdo;
 
     public function __construct(
-        \PDO $pdo
-    ) {
-        $this->pdo = $pdo;
-        $this->initializeTable();
-    }
+        private \PDO $pdo
+    ) {}
 
-    private function initializeTable(): void
-    {
-        $sql = "
-        CREATE TABLE IF NOT EXISTS question (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            intitule TEXT NOT NULL,
-            reponse INTEGER NOT NULL,
-            texte_vrai TEXT NOT NULL,
-            texte_faux TEXT NOT NULL,
-            created_at DATETIME NOT NULL
-        )";
-        $this->pdo->exec($sql);
-    }
-
-    public function save(Question $question): void
+    public function add(Question $question): void
     {
         $stmt = $this->pdo->prepare("
-            INSERT INTO question (intitule, reponse, texte_vrai, texte_faux, created_at)
-            VALUES (:intitule, :reponse, :texte_vrai, :texte_faux, :created_at)
+            INSERT INTO question (id,intitule, reponse, texte_vrai, texte_faux, created_at)
+            VALUES (:id, :intitule, :reponse, :texte_vrai, :texte_faux, :created_at)
         ");
 
         $stmt->execute([
+            ':id' => $question->getQuestionId(),
             ':intitule' => $question->getIntitule(),
             ':reponse' => $question->getReponse() ? 1 : 0,
             ':texte_vrai' => $question->getTexteVrai(),
