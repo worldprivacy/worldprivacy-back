@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Fix Git Bash on Windows → avoid path rewriting
+export MSYS_NO_PATHCONV=1
+export MSYS2_ARG_CONV_EXCL="*"
+
+
 echo "📦 Installation du projet..."
 
 # Build des images Docker
