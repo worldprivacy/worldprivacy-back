@@ -9,4 +9,6 @@ interface PaysRepositoryInterface
      * @return Pays[]
      */
     public function findAll(): array;
+
+    public function findById(PaysId $paysId): ?Pays;
 }

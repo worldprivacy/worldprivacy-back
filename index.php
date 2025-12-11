@@ -4,6 +4,7 @@ header('Content-Type: application/json');
 require __DIR__ . '/vendor/autoload.php';
 
 use WorldPrivacy\Infrastructure\Api\Pays\GetPaysListController;
+use WorldPrivacy\Infrastructure\Api\Pays\GetPaysByIdController;
 use WorldPrivacy\Infrastructure\Api\Question\GetQuestionsRandomController;
 use WorldPrivacy\Infrastructure\Api\ResponseData;
 
@@ -11,6 +12,7 @@ use WorldPrivacy\Infrastructure\Api\ResponseData;
 $routes = [
     GetQuestionsRandomController::ROUTE_PATH => GetQuestionsRandomController::class,
     GetPaysListController::ROUTE_PATH => GetPaysListController::class,
+    GetPaysByIdController::ROUTE_PATH => GetPaysByIdController::class,
 ];
 
 // Normalise l'URI (sans query string), supprime trailing slash sauf si racine
@@ -26,6 +28,26 @@ try {
     exit;
 }
 
+// Gestion des routes dynamiques : /pays/{id}
+if (
+    preg_match('#^/pays/([A-Za-z0-9_]+)$#', $uri, $matches)
+    && $uri !== '/pays/list'
+) {
+
+    $controllerClass = GetPaysByIdController::class;
+    $controller = new $controllerClass();
+    $result = $controller->index($pdo, $matches[1]);
+
+    $response = new ResponseData(
+        success: true,
+        data: $result,
+    );
+
+    http_response_code(200);
+    echo json_encode($response);
+    exit;
+}
+
 if (!isset($routes[$uri])) {
     http_response_code(404);
     echo json_encode(new ResponseData(success: false, error: 'NOT_FOUND', error_message: "Route $uri not found"));
@@ -38,7 +60,7 @@ $result = $controller->index($pdo);
 
 $response = new ResponseData(
     success: true,
-    data: $result, // array → stdClass
+    data: $result,
 );
 
 http_response_code(200);

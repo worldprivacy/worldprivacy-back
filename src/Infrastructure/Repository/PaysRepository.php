@@ -45,4 +45,26 @@ class PaysRepository implements PaysRepositoryInterface
             createdAt: new \DateTime($row['created_at'])
         ), $rows);
     }
+
+    public function findById(PaysId $id): ?Pays
+{
+    $stmt = $this->pdo->prepare("SELECT * FROM pays WHERE id = :id LIMIT 1");
+    $stmt->execute([':id' => (string) $id]);
+
+    $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+    if (!$row) {
+        return null; // Aucun pays trouvé
+    }
+
+    return new Pays(
+        paysId: new PaysId($row['id']),
+        zone: $row['zone'],
+        codePaysIso: $row['code_pays_iso'],
+        nomPays: $row['nom_pays'],
+        nvProtection: $row['nv_protection'],
+        createdAt: new \DateTime($row['created_at'])
+    );
+}
+
 }
